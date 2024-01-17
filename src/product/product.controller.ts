@@ -2,20 +2,22 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, Validation
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { ModuleRef } from '@nestjs/core';
+import { ProductEntity } from './entities/product.entity';
 
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Post()
-  create(@Body() createProductDto: CreateProductDto) {
+  create(@Body() createProductDto: CreateProductDto): Promise<ProductEntity> {
     return this.productService.create(createProductDto);
   }
 
-  @Get()
-  GetAllProducts() {
-    return this.productService.findAll();
-  }
+  // @Get()
+  // GetAllProducts() {
+  //   return this.productService.findAll();
+  // }
 
   // @Get(':id')
   // findOne(@Param('id') id: string) {
