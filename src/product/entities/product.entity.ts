@@ -8,10 +8,14 @@ export class ProductEntity {
     @PrimaryGeneratedColumn('increment')
     id: number
 
-    @Column('text')
+    @Column({
+        type: 'text'
+    })
     full_name: string
 
-    @Column('text')
+    @Column({
+        type: 'text'
+    })
     image_url: string
 
     @Column()

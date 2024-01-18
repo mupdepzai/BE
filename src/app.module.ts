@@ -11,7 +11,7 @@ import { ProductEntity } from './product/entities/product.entity';
       type: 'mysql',
       host: '202.92.7.54',
       port: 3306,
-      charset: "utf8",
+      charset: "UTF8",
       username: 'qlxqokrphosting_admin_loa',
       password: 'Phung@123',
       database: 'qlxqokrphosting_test_loa',
