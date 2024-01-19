@@ -4,6 +4,9 @@ import { AppService } from './app.service';
 import { ProductModule } from './product/product.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductEntity } from './product/entities/product.entity';
+import { UploadsController } from './uploads/uploads.controller';
+import { UploadsService } from './uploads/uploads.service';
+import { UploadsModule } from './uploads/uploads.module';
 
 @Module({
   imports: [ProductModule, 
@@ -17,9 +20,9 @@ import { ProductEntity } from './product/entities/product.entity';
       database: 'qlxqokrphosting_test_loa',
       entities: [ProductEntity],
       synchronize: true
-    })
+    }), UploadsModule
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, UploadsController],
+  providers: [AppService, UploadsService],
 })
 export class AppModule {}
