@@ -5,8 +5,8 @@ import { ProductModule } from './product/product.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductEntity } from './product/entities/product.entity';
 import { UploadsController } from './uploads/uploads.controller';
-import { UploadsService } from './uploads/uploads.service';
 import { UploadsModule } from './uploads/uploads.module';
+import { CloudinaryService } from './uploads/cloudinary.service';
 
 @Module({
   imports: [ProductModule, 
@@ -23,6 +23,6 @@ import { UploadsModule } from './uploads/uploads.module';
     }), UploadsModule
   ],
   controllers: [AppController, UploadsController],
-  providers: [AppService, UploadsService],
+  providers: [AppService, CloudinaryService],
 })
 export class AppModule {}
