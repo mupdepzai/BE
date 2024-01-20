@@ -17,8 +17,15 @@ export class ProductService {
 
 
   async create(createProductDto: CreateProductDto): Promise<ProductEntity> {
-    const save_product = await this.productRepository.save(createProductDto)
-    return plainToInstance(CreateProductDto, save_product)
+    let image_url = ''
+    createProductDto.image_url.forEach(i => {
+      image_url += (i + "|")
+    })
+    const save_product = await this.productRepository.save({
+      full_name: createProductDto.full_name,
+      image_url,
+    })
+    return plainToInstance(ProductEntity, save_product)
   }
 
   findAll() {
@@ -26,7 +33,9 @@ export class ProductService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} product`;
+    return this.productRepository.findOne({
+      where: {id}
+    })
   }
 
   update(id: number, updateProductDto: UpdateProductDto) {
