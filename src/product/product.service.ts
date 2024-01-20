@@ -87,21 +87,31 @@ export class ProductService {
     return
   }
 
-  findAll(status: number) {
+  async findAll(status: number) {
     const a= this.productRepository.createQueryBuilder('p')
     if(status != -1){
       a.where('p.status =:status',{status})
       
     }
     a.andWhere('p.status !=:delete',{delete:STATUS.DELETED})
-    const result = a.getMany()
-    return result
+    const result = await a.getMany()
+    return result.map(i => {
+      let image_url = i.image_url.split('|')
+      image_url.pop()
+      return {...i,image_url}
+    })
   }
 
-  findOne(id: number) {
-    return this.productRepository.findOne({
+  async findOne(id: number) {
+    let result = await this.productRepository.findOne({
       where: {id}
     })
+    let image_url = result.image_url.split('|')
+    image_url.pop()
+    return {
+      ...result,
+      image_url
+    }
   }
 
 

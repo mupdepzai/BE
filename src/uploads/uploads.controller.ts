@@ -36,9 +36,6 @@ export class UploadsController {
         return { filePaths };
     }
 
-
-
-
     @Post('upload-cloud')
     @UseInterceptors(FilesInterceptor('file', 10,{
         storage: diskStorage({
@@ -68,22 +65,10 @@ export class UploadsController {
         }
     }
 
-
     @Get('pictures/:filename')
     async getImage(@Param('filename') filename, @Res() res: Response) {
         res.sendFile(filename, {root: './photos'})
     }
-
-
-
-
-
-
-
-
-
-
-
 
 }
 
