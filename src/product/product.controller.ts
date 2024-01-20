@@ -1,36 +1,44 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe, HttpStatus, Res } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ModuleRef } from '@nestjs/core';
 import { ProductEntity } from './entities/product.entity';
+import { STATUS } from './enums/product.enum';
+import { BaseResponse } from './response/base.response';
 
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Post()
-  create(@Body() createProductDto: CreateProductDto): Promise<ProductEntity> {
-    return this.productService.create(createProductDto);
+  async create(@Body() createProductDto: CreateProductDto, @Res() res: any) {
+    const data = await this.productService.create(createProductDto);
+    return res.status(HttpStatus.OK).send(new BaseResponse({ data }));
   }
 
-  // @Get()
-  // GetAllProducts() {
-  //   return this.productService.findAll();
-  // }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.productService.findOne(+id);
+  @Get('detail/:id')
+  async findOne(@Param('id') id: string, @Res() res: any) {
+    const data = await this.productService.findOne(+id);
+    return res.status(HttpStatus.OK).send(new BaseResponse({ data }));
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
-  //   return this.productService.update(+id, updateProductDto);
-  // }
+  @Post('update/:id')
+  async update(@Body() createProductDto: CreateProductDto, @Param('id') id: number, @Res() res: any) {
+    const data = await this.productService.update(createProductDto, id);
+    return res.status(HttpStatus.OK).send(new BaseResponse({ data }));
+  }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.productService.remove(+id);
-  // }
+  @Get('list/:status')
+  async find(@Param('status') status: number, @Res() res: any) {
+    const data = await this.productService.findAll(status);
+    return res.status(HttpStatus.OK).send(new BaseResponse({ data }));
+  }
+
+  @Post('delete/:id')
+  async delete(@Param('id') id: number, @Res() res: any) {
+    const data = await this.productService.delete(id);
+    return res.status(HttpStatus.OK).send(new BaseResponse({ data }));
+  }
+
 }

@@ -1,10 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductEntity } from './entities/product.entity';
 import { Repository } from 'typeorm';
 import { plainToInstance } from 'class-transformer';
+import { STATUS } from './enums/product.enum';
+import { BaseResponse } from './response/base.response';
 
 @Injectable()
 export class ProductService {
@@ -16,20 +18,84 @@ export class ProductService {
   }
 
 
-  async create(createProductDto: CreateProductDto): Promise<ProductEntity> {
+  async create(createProductDto: CreateProductDto): Promise<{id: number}> {
     let image_url = ''
     createProductDto.image_url.forEach(i => {
       image_url += (i + "|")
     })
     const save_product = await this.productRepository.save({
-      full_name: createProductDto.full_name,
+      product_name: createProductDto.product_name,
       image_url,
+      adapter: createProductDto.adapter,
+      brand: createProductDto.brand,
+      color: createProductDto.color,
+      connect_micro_wireless: createProductDto.connect_micro_wireless,
+      connect_other: createProductDto.connect_other,
+      connect_wireless: createProductDto.connect_wireless,
+      frequency: createProductDto.frequency,
+      height: createProductDto.height,
+      length: createProductDto.length,
+      many_bass: createProductDto.many_bass,
+      many_speaker: createProductDto.many_speaker,
+      material: createProductDto.material,
+      model: createProductDto.model,
+      port_wired_micro: createProductDto.port_wired_micro,
+      power: createProductDto.power,
+      time_is_battery: createProductDto.time_is_battery,
+      time_is_use: createProductDto.time_is_use,
+      treble: createProductDto.treble,
+      weight: createProductDto.weight,
+      width: createProductDto.width,
+      price: createProductDto.price
     })
-    return plainToInstance(ProductEntity, save_product)
+    return {id: save_product.id}
   }
 
-  findAll() {
-    return `This action returns all product`;
+  async update(createProductDto: CreateProductDto, id: number) {
+    let image_url = ''
+    createProductDto.image_url.forEach(i => {
+      image_url += (i + "|")
+    })
+    const result = await this.productRepository.update({
+      id: id
+    }, {
+      product_name: createProductDto.product_name,
+      image_url,
+      adapter: createProductDto.adapter,
+      brand: createProductDto.brand,
+      color: createProductDto.color,
+      connect_micro_wireless: createProductDto.connect_micro_wireless,
+      connect_other: createProductDto.connect_other,
+      connect_wireless: createProductDto.connect_wireless,
+      frequency: createProductDto.frequency,
+      height: createProductDto.height,
+      length: createProductDto.length,
+      many_bass: createProductDto.many_bass,
+      many_speaker: createProductDto.many_speaker,
+      material: createProductDto.material,
+      model: createProductDto.model,
+      port_wired_micro: createProductDto.port_wired_micro,
+      power: createProductDto.power,
+      time_is_battery: createProductDto.time_is_battery,
+      time_is_use: createProductDto.time_is_use,
+      treble: createProductDto.treble,
+      weight: createProductDto.weight,
+      width: createProductDto.width,
+      price: createProductDto.price,
+      status: createProductDto.status
+    })
+    return
+  }
+
+  findAll(status: number) {
+    const a= this.productRepository.createQueryBuilder('p')
+    if(status != -1){
+      a.where('p.status =:status',{status})
+      
+    }
+    a.andWhere('p.status !=:delete',{delete:STATUS.DELETED})
+    const result = a.getMany()
+    return result
   }
 
   findOne(id: number) {
@@ -38,11 +104,13 @@ export class ProductService {
     })
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
-  }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async delete(id: number) {
+    const result = await this.productRepository.update({
+      id: id
+    }, {
+      status: STATUS.DELETED
+    })
+    return
   }
 }
