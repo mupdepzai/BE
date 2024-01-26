@@ -5,7 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ProductEntity } from './entities/product.entity';
 import { Repository } from 'typeorm';
 import { plainToInstance } from 'class-transformer';
-import { STATUS } from './enums/product.enum';
+import { StatusProduct } from './enums/product.enum';
 import { BaseResponse } from './response/base.response';
 
 @Injectable()
@@ -26,24 +26,20 @@ export class ProductService {
     const save_product = await this.productRepository.save({
       product_name: createProductDto.product_name,
       image_url,
-      adapter: createProductDto.adapter,
+      continuous_power: createProductDto.continuous_power,
       brand: createProductDto.brand,
       color: createProductDto.color,
-      connect_micro_wireless: createProductDto.connect_micro_wireless,
-      connect_other: createProductDto.connect_other,
-      connect_wireless: createProductDto.connect_wireless,
+      peak_output_power: createProductDto.peak_output_power,
+      system_product: createProductDto.system_product,
+      sensitivity: createProductDto.sensitivity,
       frequency: createProductDto.frequency,
       height: createProductDto.height,
       length: createProductDto.length,
-      many_bass: createProductDto.many_bass,
-      many_speaker: createProductDto.many_speaker,
+      Voltage: createProductDto.Voltage,
+      Voltage_ACQUI: createProductDto.Voltage_ACQUI,
       material: createProductDto.material,
-      model: createProductDto.model,
-      port_wired_micro: createProductDto.port_wired_micro,
-      power: createProductDto.power,
-      time_is_battery: createProductDto.time_is_battery,
-      time_is_use: createProductDto.time_is_use,
-      treble: createProductDto.treble,
+      product_assembled_in: createProductDto.product_assembled_in,
+      design_by: createProductDto.design_by,
       weight: createProductDto.weight,
       width: createProductDto.width,
       price: createProductDto.price
@@ -61,28 +57,24 @@ export class ProductService {
     }, {
       product_name: createProductDto.product_name,
       image_url,
-      adapter: createProductDto.adapter,
+      continuous_power: createProductDto.continuous_power,
       brand: createProductDto.brand,
       color: createProductDto.color,
-      connect_micro_wireless: createProductDto.connect_micro_wireless,
-      connect_other: createProductDto.connect_other,
-      connect_wireless: createProductDto.connect_wireless,
+      peak_output_power: createProductDto.peak_output_power,
+      system_product: createProductDto.system_product,
+      sensitivity: createProductDto.sensitivity,
       frequency: createProductDto.frequency,
       height: createProductDto.height,
       length: createProductDto.length,
-      many_bass: createProductDto.many_bass,
-      many_speaker: createProductDto.many_speaker,
+      Voltage: createProductDto.Voltage,
+      Voltage_ACQUI: createProductDto.Voltage_ACQUI,
       material: createProductDto.material,
-      model: createProductDto.model,
-      port_wired_micro: createProductDto.port_wired_micro,
-      power: createProductDto.power,
-      time_is_battery: createProductDto.time_is_battery,
-      time_is_use: createProductDto.time_is_use,
-      treble: createProductDto.treble,
+      product_assembled_in: createProductDto.product_assembled_in,
+      design_by: createProductDto.design_by,
       weight: createProductDto.weight,
       width: createProductDto.width,
       price: createProductDto.price,
-      status: createProductDto.status
+      status: createProductDto.status,
     })
     return
   }
@@ -93,7 +85,7 @@ export class ProductService {
       a.where('p.status =:status',{status})
       
     }
-    a.andWhere('p.status !=:delete',{delete:STATUS.DELETED})
+    a.andWhere('p.status !=:delete',{delete:StatusProduct.DELETED})
     const result = await a.getMany()
     return result.map(i => {
       let image_url = i.image_url.split('|')
@@ -119,7 +111,7 @@ export class ProductService {
     const result = await this.productRepository.update({
       id: id
     }, {
-      status: STATUS.DELETED
+      status: StatusProduct.DELETED
     })
     return
   }

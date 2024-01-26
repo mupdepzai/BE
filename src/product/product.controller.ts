@@ -4,7 +4,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ModuleRef } from '@nestjs/core';
 import { ProductEntity } from './entities/product.entity';
-import { STATUS } from './enums/product.enum';
+import { StatusProduct } from './enums/product.enum';
 import { BaseResponse } from './response/base.response';
 
 @Controller('product')

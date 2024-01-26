@@ -8,9 +8,9 @@ import { resolve } from 'path';
 export class CloudinaryService {
     constructor() {
         v2.config({
-            cloud_name: 'dfyayszmg',
-            api_key: '581435914996794',
-            api_secret: 'gJiCuJecEV8O51nW_PniZWBAjbo'
+            cloud_name: '',
+            api_key: '',
+            api_secret: ''
         })
     }
 

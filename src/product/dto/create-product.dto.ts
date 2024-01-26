@@ -1,107 +1,91 @@
 import { Expose, Transform } from "class-transformer";
 import { IsNotEmpty, isNotEmpty } from "class-validator";
 import { BaseDto } from "src/base/dto/base.dto";
-import { STATUS } from "../enums/product.enum";
+import { StatusProduct } from "../enums/product.enum";
 
 export class CreateProductDto extends BaseDto{
-    forEach(arg0: (element: any) => void) {
-      throw new Error('Method not implemented.');
-    }
+  forEach(arg0: (element: any) => void) {
+    throw new Error('Method not implemented.');
+  }
+  
+  @IsNotEmpty()
+  @Expose()
+  product_name: string; // tên sản phẩm
+  
+  @IsNotEmpty()
+  @Expose()
+  image_url: string[];
+  
+  @IsNotEmpty()
+  @Expose()
+  brand: string; // hãng
+  
+  @IsNotEmpty()
+  @Expose()
+  continuous_power: string // công suất liên tục
+  
+  @IsNotEmpty()
+  @Expose()
+  peak_output_power: string // công suất đỉnh
+  
+  @IsNotEmpty()
+  @Expose()
+  system_product: string // hệ thống loa
+  
+  @IsNotEmpty()
+  @Expose()
+  frequency: string // tần số
+  
+  @IsNotEmpty()
+  @Expose()
+  sensitivity: string // Độ nhạy
 
-    @IsNotEmpty()
-    @Expose()
-    product_name: string; // tên sản phẩm
+  @IsNotEmpty()
+  @Expose()
+  Voltage: string // điện thế
+  
+  @IsNotEmpty()
+  @Expose()
+  Voltage_ACQUI: string // điện thế bình ắc quy
 
-    @IsNotEmpty()
-    @Expose()
-    image_url: string[];
-
-    @IsNotEmpty()
-    @Expose()
-    brand: string; // hãng
-
-    @IsNotEmpty()
-    @Expose()
-    model: string // model
-
-    @IsNotEmpty()
-    @Expose()
-    power: string // công suất
-
-    @IsNotEmpty()
-    @Expose()
-    adapter: string // nguồn
-
-    @IsNotEmpty()
-    @Expose()
-    time_is_battery: string // thời gian sạc
-
-    @IsNotEmpty()
-    @Expose()
-    time_is_use: string // thời gian sử dụng
-
-    @IsNotEmpty()
-    @Expose()
-    many_speaker: string // số đường tiếng
-
-    @IsNotEmpty()
-    @Expose()
-    many_bass: string // loa bass
-
-    @IsNotEmpty()
-    @Expose()
-    treble: string // loa treble
-
-    @IsNotEmpty()
-    @Expose()
-    connect_wireless: string // kết nối không dây
-
-    @IsNotEmpty()
-    @Expose()
-    connect_micro_wireless: string // kết nối micro không dây
-
-    @IsNotEmpty()
-    @Expose()
-    connect_other: string // các loại kết nối khác
-
-    @IsNotEmpty()
-    @Expose()
-    port_wired_micro: string // cổng kết nối micro có dây
-
-    @IsNotEmpty()
-    @Expose()
-    length: number // chiều dài (m)
-
-    @IsNotEmpty()
-    @Expose()
-    width: number // chiều rộng (m)
-
-    @IsNotEmpty()
-    @Expose()
-    height: number // chiều cao (m)
-
-    @IsNotEmpty()
-    @Expose()
-    weight: number // trọng lượng (kg)
-
-    @IsNotEmpty()
-    @Expose()
-    material: string // chất liệu
-
-    @IsNotEmpty()
-    @Expose()
-    color: string // màu
-
-    @IsNotEmpty()
-    @Expose()
-    frequency: string // tần số
-
-    @IsNotEmpty()
-    @Expose()
-    price: number // đơn giá đơn vị nghìn đồng
-
-    @IsNotEmpty()
-    @Expose()
-    status: STATUS
+  @IsNotEmpty()
+  @Expose()
+  length: number // chiều dài (m)
+  
+  @IsNotEmpty()
+  @Expose()
+  width: number // chiều rộng (m)
+  
+  @IsNotEmpty()
+  @Expose()
+  height: number // chiều cao (m)
+  
+  @IsNotEmpty()
+  @Expose()
+  weight: number // trọng lượng (kg)
+  
+  @IsNotEmpty()
+  @Expose()
+  material: string // chất liệu
+  
+  @IsNotEmpty()
+  @Expose()
+  color: string // màu
+  
+  @IsNotEmpty()
+  @Expose()
+  price: number // đơn giá đơn vị nghìn đồng
+  
+  @IsNotEmpty()
+  @Expose()
+  status: StatusProduct
+  
+  @IsNotEmpty()
+  @Expose()
+  product_assembled_in: string // Địa chỉ sản phẩm được lắp ráp tại đâu
+  
+  @IsNotEmpty()
+  @Expose()
+  design_by: string // thiết kế bởi??
     
 }

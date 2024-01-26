@@ -1,135 +1,132 @@
-import * as moment from "moment";
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { STATUS } from "../enums/product.enum";
+import * as moment from 'moment';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { StatusProduct } from '../enums/product.enum';
 
 @Entity({
-    name: 'product'
+  name: 'product',
 })
-
 export class ProductEntity {
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
-    @PrimaryGeneratedColumn('increment')
-    id: number
+  @Column({
+    type: 'text',
+  })
+  product_name: string; // tên sản phẩm
 
-    @Column({
-        type: 'text'
-    })
-    product_name: string
+  @Column({
+    type: 'text',
+  })
+  image_url: string;
 
-    @Column({
-        type: 'text'
-    })
-    image_url: string
+  @Column({
+    type: 'text',
+  })
+  brand: string; // hãng
 
-    @Column({
-        type: 'text'
-    })
-    brand: string
+  @Column({
+    type: 'text',
+  })
+  continuous_power: string; // công suất liên tục
 
-    @Column({
-        type: 'text'
-    })
-    model: string
+  @Column({
+    type: 'text',
+  })
+  peak_output_power: string; // công suất đỉnh
 
-    @Column({
-        type: 'text'
-    })
-    power: string
+  @Column({
+    type: 'text',
+  })
+  system_product: string; // hệ thống loa
 
-    @Column({
-        type: 'text'
-    })
-    adapter: string
+  @Column({
+    type: 'text',
+  })
+  frequency: string; // tần số
 
-    @Column({
-        type: 'text'
-    })
-    time_is_battery: string
-    
-    @Column({
-        type: 'text'
-    })
-    time_is_use: string
+  @Column({
+    type: 'text',
+  })
+  sensitivity: string; // Độ nhạy
 
-    @Column({
-        type: 'text'
-    })
-    many_speaker: string
+  @Column({
+    type: 'text',
+  })
+  Voltage: string; // điện thế
 
-    @Column({
-        type: 'text'
-    })
-    many_bass: string
+  @Column({
+    type: 'text',
+  })
+  Voltage_ACQUI: string; // điện thế bình ắc quy
 
-    @Column({
-        type: 'text'
-    })
-    treble: string
+  @Column({
+    type: 'text',
+  })
+  length: number; // chiều dài (m)
 
-    @Column({
-        type: 'text'
-    })
-    connect_wireless: string
+  @Column({
+    type: 'text',
+  })
+  width: number; // chiều rộng (m)
 
-    @Column({
-        type: 'text'
-    })
-    connect_micro_wireless: string
+  @Column({
+    type: 'text',
+  })
+  height: number; // chiều cao (m)
 
-    @Column({
-        type: 'text'
-    })
-    connect_other: string
+  @Column({
+    type: 'text',
+  })
+  weight: number; // trọng lượng (kg)
 
-    @Column({
-        type: 'text'
-    })
-    port_wired_micro: string
+  @Column({
+    type: 'text',
+  })
+  material: string; // chất liệu
 
-    @Column()
-    length: number
+  @Column({
+    type: 'text',
+  })
+  color: string; // màu
 
-    @Column()
-    width: number
+  @Column({
+    type: 'text',
+  })
+  price: number; // đơn giá đơn vị nghìn đồng
 
-    @Column()
-    height: number
+  @Column({
+    type: 'text',
+  })
+  status: StatusProduct;
 
-    @Column()
-    weight: number
+  @Column({
+    type: 'text',
+  })
+  product_assembled_in: string; // Địa chỉ sản phẩm được lắp ráp tại đâu
 
-    @Column({
-        type: 'text'
-    })
-    material: string
+  @Column({
+    type: 'text',
+  })
+  design_by: string; // thiết kế bởi??
 
-    @Column({
-        type: 'text'
-    })
-    color: string
+  @Column({
+    type: 'text',
+  })
+  virtual_media: string; // thiết kế bởi??
 
-    @Column({
-        type: 'text'
-    })
-    frequency: string
+  @CreateDateColumn({
+    type: 'timestamp',
+  })
+  create_at: number;
 
-    @Column()
-    price: number // đơn giá đơn vị nghìn đồng
-
-    @Column({
-        enum: STATUS,
-        type: Number,
-        default: 1
-    })
-    status: STATUS
-
-    @CreateDateColumn({
-    type: 'timestamp'
-    })
-    create_at: number
-
-    @UpdateDateColumn({
-    type: 'timestamp'
-    })
-    updated_at: number;
+  @UpdateDateColumn({
+    type: 'timestamp',
+  })
+  updated_at: number;
 }
